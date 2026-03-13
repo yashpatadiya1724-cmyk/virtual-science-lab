@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Admin Panel | Virtual Science Lab</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar scrolled">
+    <div class="nav-logo">
+      <span class="logo-icon">⚗️</span>
+      <span class="logo-text">VirtualSciLab — Admin</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="lab.html">Lab</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="admin.html" style="color:var(--clr-primary)">Admin</a></li>
+    </ul>
+    <button class="nav-cta" onclick="location.href='lab.html'">🔬 Lab</button>
+  </nav>
+
+  <div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div style="padding:var(--space-md);font-family:var(--font-display);font-size:0.7rem;color:var(--clr-text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:var(--space-sm)">
+        Teacher Panel
+      </div>
+      <div class="admin-nav-item active" onclick="showSection('overview')">
+        <span class="admin-icon">📊</span> Overview
+      </div>
+      <div class="admin-nav-item" onclick="showSection('experiments')">
+        <span class="admin-icon">🧪</span> Experiments
+      </div>
+      <div class="admin-nav-item" onclick="showSection('add-exp')">
+        <span class="admin-icon">➕</span> Add Experiment
+      </div>
+      <div class="admin-nav-item" onclick="showSection('students')">
+        <span class="admin-icon">👥</span> Students
+      </div>
+      <div class="admin-nav-item" onclick="showSection('analytics')">
+        <span class="admin-icon">📈</span> Analytics
+      </div>
+      <div class="admin-nav-item" onclick="showSection('settings')">
+        <span class="admin-icon">⚙️</span> Settings
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <div class="admin-content">
+
+      <!-- OVERVIEW SECTION -->
+      <div id="section-overview" class="admin-section">
+        <div class="section-label">📊 Dashboard Overview</div>
+        <h2 class="section-title" style="font-size:1.8rem">Welcome, Dr. Priya Sharma</h2>
+
+        <div class="stats-row" style="margin-bottom:var(--space-lg)">
+          <div class="stat-card"><div class="num">48</div><div class="label">Total Students</div></div>
+          <div class="stat-card"><div class="num">24</div><div class="label">Experiments</div></div>
+          <div class="stat-card"><div class="num">312</div><div class="label">Sessions Today</div></div>
+          <div class="stat-card"><div class="num">76%</div><div class="label">Completion Rate</div></div>
+        </div>
+
+        <!-- Usage Chart -->
+        <div class="section-card" style="margin-bottom:var(--space-md)">
+          <div class="card-header">
+            <div class="card-title">Weekly Usage Analytics</div>
+          </div>
+          <div class="chart-area" style="height:160px">
+            <div class="chart-bars" id="admin-chart">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-around;margin-top:0.5rem;font-size:0.72rem;color:var(--clr-text-muted)">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+        </div>
+
+        <!-- Top Experiments -->
+        <div class="section-card">
+          <div class="card-header">
+            <div class="card-title">Most Used Experiments</div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Experiment</th>
+                <th>Subject</th>
+                <th>Sessions</th>
+                <th>Avg. Score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="top-exp-table">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EXPERIMENTS LIST -->
+      <div id="section-experiments" class="admin-section" style="display:none">
+        <div class="section-label">🧪 Manage Experiments</div>
+        <h2 class="section-title" style="font-size:1.8rem">All Experiments</h2>
+
+        <div style="display:flex;justify-content:flex-end;margin-bottom:var(--space-md)">
+          <button class="btn-primary" onclick="showSection('add-exp')">+ Add New Experiment</button>
+        </div>
+
+        <div class="section-card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Class</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="experiments-table">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADD EXPERIMENT -->
+      <div id="section-add-exp" class="admin-section" style="display:none">
+        <div class="section-label">➕ Create New</div>
+        <h2 class="section-title" style="font-size:1.8rem">Add Experiment</h2>
+
+        <div class="section-card" style="max-width:640px">
+          <form onsubmit="submitExperiment(event)">
+            <div class="form-group">
+              <label class="form-label">Experiment Name</label>
+              <input class="form-input" type="text" placeholder="e.g. Simple Harmonic Motion" required />
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)">
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <select class="form-select">
+                  <option>Physics</option>
+                  <option>Chemistry</option>
+                  <option>Biology</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Class Level</label>
+                <select class="form-select">
+                  <option>Class 8</option>
+                  <option>Class 9</option>
+                  <option>Class 10</option>
+                  <option>Class 11</option>
+                  <option>Class 12</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea class="form-textarea" placeholder="Describe the experiment, its objectives, and expected outcomes..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">NCERT Chapter Reference</label>
+              <input class="form-input" type="text" placeholder="e.g. Chapter 10 – Gravitation" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Estimated Duration (minutes)</label>
+              <input class="form-input" type="number" value="20" min="5" max="120" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Learning Outcomes</label>
+              <textarea class="form-textarea" style="min-height:80px" placeholder="What will students learn? (one per line)"></textarea>
+            </div>
+            <div style="display:flex;gap:var(--space-sm)">
+              <button type="submit" class="btn-primary">Save & Publish</button>
+              <button type="button" class="btn-secondary">Save as Draft</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- STUDENTS -->
+      <div id="section-students" class="admin-section" style="display:none">
+        <div class="section-label">👥 Student Management</div>
+        <h2 class="section-title" style="font-size:1.8rem">All Students</h2>
+
+        <div class="section-card">
+          <div class="card-header">
+            <input class="form-input" type="search" placeholder="Search students..." style="width:280px;padding:0.5rem 0.75rem" />
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Class</th>
+                <th>Experiments Done</th>
+                <th>Last Active</th>
+                <th>Avg. Score</th>
+              </tr>
+            </thead>
+            <tbody id="students-table">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div id="section-analytics" class="admin-section" style="display:none">
+        <div class="section-label">📈 Usage Analytics</div>
+        <h2 class="section-title" style="font-size:1.8rem">Platform Analytics</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-md)">
+          <div class="section-card">
+            <div class="card-title" style="margin-bottom:var(--space-sm)">Experiment Popularity</div>
+            <div class="chart-area" id="chart-popularity"></div>
+          </div>
+          <div class="section-card">
+            <div class="card-title" style="margin-bottom:var(--space-sm)">Subject Distribution</div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-xs)" id="subject-dist">
+              <div class="progress-item">
+                <div><div class="progress-name">Physics</div><div class="progress-bar-wrap"><div class="progress-bar" style="width:60%"></div></div></div>
+                <span class="progress-pct">60%</span>
+              </div>
+              <div class="progress-item">
+                <div><div class="progress-name">Chemistry</div><div class="progress-bar-wrap"><div class="progress-bar" style="width:30%;background:linear-gradient(90deg,var(--clr-secondary),#ff9944)"></div></div></div>
+                <span class="progress-pct" style="color:var(--clr-secondary)">30%</span>
+              </div>
+              <div class="progress-item">
+                <div><div class="progress-name">Biology</div><div class="progress-bar-wrap"><div class="progress-bar" style="width:10%;background:linear-gradient(90deg,var(--clr-accent),#88ff44)"></div></div></div>
+                <span class="progress-pct" style="color:var(--clr-accent)">10%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="section-settings" class="admin-section" style="display:none">
+        <div class="section-label">⚙️ Configuration</div>
+        <h2 class="section-title" style="font-size:1.8rem">Settings</h2>
+        <div class="section-card" style="max-width:520px">
+          <div class="form-group">
+            <label class="form-label">School Name</label>
+            <input class="form-input" type="text" value="Government High School, Rajasthan" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Low Bandwidth Mode</label>
+            <select class="form-select">
+              <option value="auto">Auto Detect</option>
+              <option value="on">Always On</option>
+              <option value="off">Always Off</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Language</label>
+            <select class="form-select">
+              <option>English</option>
+              <option>Hindi</option>
+              <option>Marathi</option>
+              <option>Tamil</option>
+              <option>Telugu</option>
+            </select>
+          </div>
+          <button class="btn-primary">Save Settings</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/utils/helpers.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

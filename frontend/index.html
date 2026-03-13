@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Science Lab – Skill India VR</title>
+  <meta name="description" content="Experience NEP 2020 vision with VR-ready virtual science labs for underfunded schools across India." />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-icon">⚗️</span>
+      <span class="logo-text">VirtualSciLab</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#experiments">Experiments</a></li>
+      <li><a href="pages/lab.html">Enter Lab</a></li>
+      <li><a href="pages/dashboard.html">Dashboard</a></li>
+      <li><a href="pages/admin.html">Admin</a></li>
+    </ul>
+    <button class="nav-cta" onclick="location.href='pages/lab.html'">🔬 Open Lab</button>
+    <button class="hamburger" id="hamburger">☰</button>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">🇮🇳 NEP 2020 × Skill India Initiative</div>
+      <h1 class="hero-title">
+        Science for<br />
+        <span class="gradient-text">Every Student</span>
+      </h1>
+      <p class="hero-subtitle">
+        A VR-powered virtual laboratory bringing world-class science education
+        to underfunded schools across India. Perform real experiments —
+        no equipment, no limits.
+      </p>
+      <div class="hero-actions">
+        <a href="pages/lab.html" class="btn-primary">
+          <span>Enter Virtual Lab</span>
+          <span class="btn-icon">→</span>
+        </a>
+        <button class="btn-secondary" id="watch-demo">Watch Demo ▶</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" data-target="1200">0</span><span class="stat-label">Schools Reached</span></div>
+        <div class="stat"><span class="stat-num" data-target="48000">0</span><span class="stat-label">Students Learning</span></div>
+        <div class="stat"><span class="stat-num" data-target="24">0</span><span class="stat-label">Experiments Available</span></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- NEP 2020 VISION -->
+  <section class="nep-section" id="nep">
+    <div class="container">
+      <div class="section-label">🏛️ Policy Framework</div>
+      <h2 class="section-title">Rooted in NEP 2020 Vision</h2>
+      <div class="nep-grid">
+        <div class="nep-card" data-animate>
+          <div class="nep-icon">🧪</div>
+          <h3>Experiential Learning</h3>
+          <p>NEP 2020 mandates hands-on, inquiry-based learning. Our virtual lab makes every student a scientist — regardless of their school's budget.</p>
+        </div>
+        <div class="nep-card" data-animate>
+          <div class="nep-icon">🌐</div>
+          <h3>Digital Equity</h3>
+          <p>Optimized for low-bandwidth rural networks. Works on basic Android smartphones — bridging the digital divide in Tier 3 & 4 cities.</p>
+        </div>
+        <div class="nep-card" data-animate>
+          <div class="nep-icon">🎯</div>
+          <h3>Skill Development</h3>
+          <p>Aligned with Skill India goals — building scientific temperament, critical thinking, and STEM skills from an early age.</p>
+        </div>
+        <div class="nep-card" data-animate>
+          <div class="nep-icon">📊</div>
+          <h3>Learning Outcomes</h3>
+          <p>Track individual student progress, experiment completion rates, and conceptual understanding through real-time analytics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIMENTS SECTION -->
+  <section class="experiments-section" id="experiments">
+    <div class="container">
+      <div class="section-label">🔭 Lab Simulations</div>
+      <h2 class="section-title">Available Experiments</h2>
+      <p class="section-sub">Perform safe, accurate simulations of real laboratory experiments</p>
+
+      <div class="exp-grid">
+        <div class="exp-card" onclick="location.href='pages/lab.html?exp=pendulum'">
+          <div class="exp-preview" id="preview-pendulum"></div>
+          <div class="exp-info">
+            <span class="exp-tag physics">Physics</span>
+            <h3>Simple Pendulum</h3>
+            <p>Explore periodic motion, gravity, and time periods. Measure the effect of length on oscillation frequency.</p>
+            <div class="exp-meta">
+              <span>⏱ 15 min</span>
+              <span>📚 Class 9-10</span>
+              <span>⭐ 4.8</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card featured" onclick="location.href='pages/lab.html?exp=prism'">
+          <div class="exp-preview" id="preview-prism"></div>
+          <div class="exp-info">
+            <span class="exp-tag physics">Physics</span>
+            <h3>Prism Refraction</h3>
+            <p>Discover the spectrum of white light through a glass prism. Measure angles of deviation and refractive index.</p>
+            <div class="exp-meta">
+              <span>⏱ 20 min</span>
+              <span>📚 Class 10-12</span>
+              <span>⭐ 4.9</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card" onclick="location.href='pages/lab.html?exp=acidbase'">
+          <div class="exp-preview" id="preview-acid"></div>
+          <div class="exp-info">
+            <span class="exp-tag chemistry">Chemistry</span>
+            <h3>Acid-Base Reaction</h3>
+            <p>Observe neutralisation between HCl and NaOH. Test pH changes with indicators and track the reaction progress.</p>
+            <div class="exp-meta">
+              <span>⏱ 25 min</span>
+              <span>📚 Class 9-11</span>
+              <span>⭐ 4.7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-all-wrap">
+        <a href="pages/lab.html" class="btn-outline">View All 24 Experiments →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="container">
+      <div class="section-label">📱 Getting Started</div>
+      <h2 class="section-title">Learn in 3 Simple Steps</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Choose Experiment</h3>
+          <p>Browse experiments by subject, class level, or topic. All aligned with NCERT curriculum.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Enter Virtual Lab</h3>
+          <p>Interact with realistic 3D lab equipment. Drag, drop, and manipulate tools just like a real lab.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Record & Learn</h3>
+          <p>Results are automatically logged. Review concepts, retry experiments, and track your progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VR SECTION -->
+  <section class="vr-section">
+    <div class="container">
+      <div class="vr-content">
+        <div class="section-label">🥽 Immersive Experience</div>
+        <h2 class="section-title">Full VR Mode Available</h2>
+        <p>Compatible with Google Cardboard, Samsung Gear VR, and standalone headsets. Experience science in true 3D with WebXR technology.</p>
+        <ul class="vr-features">
+          <li>✅ Works with any smartphone + cardboard</li>
+          <li>✅ WebXR standard — no app install needed</li>
+          <li>✅ Controller-free gesture support</li>
+          <li>✅ Low-data VR mode for slow networks</li>
+        </ul>
+        <a href="pages/lab.html?mode=vr" class="btn-primary">Enable VR Mode 🥽</a>
+      </div>
+      <div class="vr-visual" id="vr-globe"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">VirtualSciLab</div>
+          <p>Empowering India's future scientists through accessible, immersive education.</p>
+          <p class="footer-tag">Built under NEP 2020 × Skill India</p>
+        </div>
+        <div class="footer-links">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="pages/lab.html">Virtual Lab</a></li>
+            <li><a href="pages/dashboard.html">Student Dashboard</a></li>
+            <li><a href="pages/admin.html">Teacher Panel</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">NCERT Alignment</a></li>
+            <li><a href="#">API Docs</a></li>
+            <li><a href="#">GitHub Repo</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Virtual Science Lab – Skill India VR. Open Source under MIT License.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/utils/helpers.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard | Virtual Science Lab</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-icon">⚗️</span>
+      <span class="logo-text">VirtualSciLab</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="lab.html">Lab</a></li>
+      <li><a href="dashboard.html" style="color:var(--clr-primary)">Dashboard</a></li>
+      <li><a href="admin.html">Admin</a></li>
+    </ul>
+    <button class="nav-cta" onclick="location.href='lab.html'">🔬 Open Lab</button>
+  </nav>
+
+  <div class="page-layout">
+    <main class="page-main">
+      <div class="container">
+
+        <!-- Welcome Header -->
+        <div class="dashboard-header">
+          <div class="user-welcome">
+            <div class="avatar" id="user-avatar">A</div>
+            <div class="welcome-text">
+              <h2 id="user-name">Welcome back, Arjun Kumar!</h2>
+              <p>Class 10 · Government High School, Rajasthan · <span id="last-login">Last active: Today</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="num" id="stat-completed">7</div>
+            <div class="label">Experiments Done</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-streak">4</div>
+            <div class="label">Day Streak 🔥</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-score">82%</div>
+            <div class="label">Avg. Score</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-time">3.2h</div>
+            <div class="label">Lab Time</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-badges">3</div>
+            <div class="label">Badges Earned</div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+
+          <!-- Left: In-Progress Experiments -->
+          <div>
+            <div class="section-card" style="margin-bottom:var(--space-md)">
+              <div class="card-header">
+                <div class="card-title">In Progress</div>
+                <a href="lab.html" style="font-size:0.78rem;color:var(--clr-primary)">Continue →</a>
+              </div>
+              <div class="progress-list" id="progress-list">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="section-card">
+              <div class="card-header">
+                <div class="card-title">🏆 Badges</div>
+              </div>
+              <div style="display:flex;gap:var(--space-sm);flex-wrap:wrap;" id="badges-grid">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Recent Completed -->
+          <div>
+            <div class="section-card">
+              <div class="card-header">
+                <div class="card-title">✅ Completed</div>
+              </div>
+              <div class="completed-list" id="completed-list">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Recommended -->
+            <div class="section-card" style="margin-top:var(--space-md)">
+              <div class="card-header">
+                <div class="card-title">💡 Try Next</div>
+              </div>
+              <div id="recommended-list" style="display:flex;flex-direction:column;gap:0.5rem;">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/utils/helpers.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
