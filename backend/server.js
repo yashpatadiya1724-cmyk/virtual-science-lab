@@ -94,18 +94,19 @@ app.use((err, req, res, next) => {
 mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log(`✅ MongoDB connected: ${MONGODB_URI}`);
-    app.listen(PORT, () => {
-      console.log(`🚀 Virtual Science Lab server running on http://localhost:${PORT}`);
-      console.log(`📚 NEP 2020 | Skill India VR Platform`);
-    });
   })
   .catch(err => {
     console.error('❌ MongoDB connection failed:', err.message);
     console.log('ℹ  Starting server without database (demo mode)...');
-    // Start anyway for frontend serving
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running (no DB) on http://localhost:${PORT}`);
-    });
   });
 
+// Only listen locally — Vercel handles the HTTP layer in production
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Virtual Science Lab server running on http://localhost:${PORT}`);
+    console.log(`📚 NEP 2020 | Skill India VR Platform`);
+  });
+}
+
 module.exports = app;
+
