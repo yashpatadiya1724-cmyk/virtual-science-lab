@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Lab | Virtual Science Lab</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/lab.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+</head>
+<body class="lab-page">
+
+<div class="lab-wrap">
+
+  <!-- TOP NAV -->
+  <nav class="lab-nav">
+    <div class="lab-nav-l">
+      <button class="back-btn" onclick="location.href='../index.html'">← Home</button>
+      <div style="font-family:var(--font-hd);font-size:0.85rem;color:var(--primary)">⚗️ VirtualSciLab</div>
+      <span class="lab-nav-title" id="nav-title">Simple Pendulum</span>
+    </div>
+    <div class="lab-nav-r">
+      <button class="back-btn" onclick="location.href='dashboard.html'">📊 Dashboard</button>
+      <button class="back-btn" id="vr-toggle-nav" onclick="toggleVR()" style="border-color:var(--green);color:var(--green)">🥽 VR Mode</button>
+    </div>
+  </nav>
+
+  <!-- LEFT TOOLBAR -->
+  <aside class="lab-toolbar">
+    <button class="tool-btn active" data-tip="Rotate">🔄</button>
+    <button class="tool-btn" data-tip="Pan">✋</button>
+    <button class="tool-btn" data-tip="Zoom">🔍</button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" data-tip="Pendulum"  onclick="switchExp('pendulum')">⚖️</button>
+    <button class="tool-btn" data-tip="Prism"     onclick="switchExp('prism')">🔺</button>
+    <button class="tool-btn" data-tip="Acid+Base" onclick="switchExp('acidbase')">🧪</button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" data-tip="Screenshot" onclick="doScreenshot()">📷</button>
+    <button class="tool-btn" data-tip="Fullscreen" onclick="toggleFull()">⛶</button>
+  </aside>
+
+  <!-- CANVAS AREA -->
+  <main class="lab-canvas" id="lab-canvas-area">
+    <canvas id="lab-canvas"></canvas>
+
+    <!-- VR (A-Frame) -->
+    <div id="vr-container">
+      <a-scene embedded vr-mode-ui="enabled:true" id="aframe-scene">
+        <a-sky color="#020810"></a-sky>
+        <a-light type="ambient" color="#112233" intensity="0.6"></a-light>
+        <a-light type="directional" position="5 10 5" color="#00c8ff" intensity="1"></a-light>
+        <a-plane position="0 0 0" rotation="-90 0 0" width="20" height="20" color="#0a1628"></a-plane>
+        <a-box position="0 0.5 -2" width="4" height="0.1" depth="2" color="#1a2a40"></a-box>
+        <!-- VR Pendulum -->
+        <a-entity position="0 3.5 -2">
+          <a-cylinder radius="0.02" height="2" color="#00c8ff" position="0 -1 0"></a-cylinder>
+          <a-sphere radius="0.18" color="#ff6b35" position="0 -2 0" id="vr-bob"></a-sphere>
+        </a-entity>
+        <a-text value="Virtual Science Lab\nSkill India VR" position="-2.5 2.5 -4" color="#00c8ff" width="5" align="center"></a-text>
+        <a-entity camera look-controls wasd-controls position="0 1.6 5">
+          <a-cursor color="#00c8ff"></a-cursor>
+        </a-entity>
+      </a-scene>
+    </div>
+
+    <!-- Experiment tabs -->
+    <div class="canvas-tabs">
+      <button class="exp-tab active" onclick="switchExp('pendulum')">⚖️ Pendulum</button>
+      <button class="exp-tab"        onclick="switchExp('prism')">🔺 Prism</button>
+      <button class="exp-tab"        onclick="switchExp('acidbase')">🧪 Acid+Base</button>
+    </div>
+
+    <!-- HUD -->
+    <div class="canvas-hud">
+      <button class="hud-btn" onclick="startExp()">▶ Start</button>
+      <button class="hud-btn red" onclick="resetExp()">↺ Reset</button>
+      <button class="hud-btn" onclick="nextStep()">→ Next Step</button>
+    </div>
+
+    <!-- VR button -->
+    <button class="vr-btn" onclick="toggleVR()">🥽 Enter VR</button>
+
+    <!-- Loader -->
+    <div class="lab-loader" id="lab-loader">
+      <div class="spinner"></div>
+      <div class="loader-txt">LOADING LAB ENVIRONMENT...</div>
+    </div>
+  </main>
+
+  <!-- RIGHT PANEL -->
+  <aside class="exp-panel">
+    <div class="panel-hd">
+      <div class="panel-name" id="panel-name">🔬 EXPERIMENT</div>
+      <div class="panel-class" id="panel-class">Physics – Class 9-10</div>
+    </div>
+    <div class="panel-body" id="panel-body"><!-- filled by lab.js --></div>
+    <div class="panel-ctrls">
+      <button class="ctrl-btn go"  onclick="startExp()">▶ Start Experiment</button>
+      <button class="ctrl-btn rst" onclick="resetExp()">↺ Reset All</button>
+      <button class="ctrl-btn rst" onclick="markDone()" style="border-color:var(--green);color:var(--green)">✅ Mark Complete</button>
+    </div>
+  </aside>
+
+</div>
+
+<script src="../js/helpers.js"></script>
+<script src="../js/pendulum.js"></script>
+<script src="../js/prism.js"></script>
+<script src="../js/acidbase.js"></script>
+<script src="../js/lab.js"></script>
+</body>
+</html>

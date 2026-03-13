@@ -1,0 +1,144 @@
+/* ============================================
+   VIRTUAL SCIENCE LAB — dashboard.css
+   Student dashboard + Admin panel
+   ============================================ */
+
+.page-wrap { padding-top:var(--nav-h); min-height:100vh; }
+.page-main  { padding:3rem 0; }
+
+/* ---- Welcome ---- */
+.welcome-row { display:flex; align-items:center; gap:1.2rem; margin-bottom:2rem; }
+.avatar {
+  width:60px; height:60px; border-radius:50%; flex-shrink:0;
+  background:linear-gradient(135deg,var(--primary),var(--orange));
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-hd); font-size:1.4rem; font-weight:700; color:var(--bg);
+}
+.welcome-text h2 { font-family:var(--font-hd); font-size:1.4rem; margin-bottom:0.15rem; }
+.welcome-text p  { font-size:0.85rem; color:var(--muted); }
+
+/* ---- Stats Row ---- */
+.stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:0.8rem; margin-bottom:2.5rem; }
+.stat-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:14px; padding:1.2rem; transition:var(--trans);
+}
+.stat-card:hover { border-color:var(--primary); transform:translateY(-2px); }
+.stat-card .big { font-family:var(--font-hd); font-size:2rem; font-weight:700; color:var(--primary); line-height:1; margin-bottom:0.25rem; }
+.stat-card .lbl { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; }
+
+/* ---- Dashboard Grid ---- */
+.dash-grid { display:grid; grid-template-columns:2fr 1fr; gap:1.2rem; }
+
+/* ---- Section Card ---- */
+.sec-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.5rem; }
+.card-top {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);
+}
+.card-title { font-family:var(--font-hd); font-size:0.75rem; font-weight:700; color:var(--primary); letter-spacing:0.08em; text-transform:uppercase; }
+.card-link  { font-size:0.75rem; color:var(--primary); }
+
+/* ---- Progress list ---- */
+.prog-list { display:flex; flex-direction:column; gap:0.8rem; }
+.prog-row  { display:grid; grid-template-columns:1fr auto; gap:0.5rem; align-items:center; }
+.prog-name { font-size:0.85rem; margin-bottom:3px; }
+.prog-track { height:4px; background:var(--border); border-radius:2px; overflow:hidden; }
+.prog-fill  { height:100%; background:linear-gradient(90deg,var(--primary),var(--green)); border-radius:2px; transition:width 1s ease; }
+.prog-sub   { font-size:0.68rem; color:var(--muted); }
+.prog-pct   { font-family:var(--font-hd); font-size:0.8rem; font-weight:600; color:var(--primary); }
+
+/* ---- Completed list ---- */
+.done-list { display:flex; flex-direction:column; gap:0.4rem; }
+.done-row {
+  display:flex; align-items:center; gap:0.7rem;
+  padding:0.55rem 0.7rem; background:var(--bg);
+  border:1px solid var(--border); border-radius:var(--radius); font-size:0.8rem;
+}
+.done-row .icon { font-size:1rem; }
+.done-row .name { flex:1; }
+.done-row .date { font-size:0.68rem; color:var(--muted); }
+
+/* ---- Badges ---- */
+.badges-wrap { display:flex; gap:0.8rem; flex-wrap:wrap; }
+.badge-card {
+  display:flex; flex-direction:column; align-items:center; gap:0.25rem;
+  padding:0.9rem 1rem; background:var(--bg); border:1px solid var(--border);
+  border-radius:var(--radius); text-align:center; min-width:90px; transition:var(--trans);
+}
+.badge-card:hover { border-color:var(--gold); }
+.badge-card .em  { font-size:1.8rem; }
+.badge-card .nm  { font-family:var(--font-hd); font-size:0.65rem; font-weight:700; color:var(--gold); }
+.badge-card .dc  { font-size:0.62rem; color:var(--muted); }
+
+/* ---- Recommend list ---- */
+.rec-list { display:flex; flex-direction:column; gap:0.4rem; }
+.rec-row {
+  display:flex; align-items:center; gap:0.7rem;
+  padding:0.65rem 0.8rem; background:var(--bg);
+  border:1px solid var(--border); border-radius:var(--radius);
+  cursor:pointer; transition:var(--trans);
+}
+.rec-row:hover { border-color:var(--primary); }
+.rec-row .ico { font-size:1.2rem; }
+.rec-row .info .ttl { font-size:0.85rem; font-weight:600; }
+.rec-row .info .sub { font-size:0.7rem; color:var(--muted); }
+.rec-row .arr { margin-left:auto; color:var(--primary); font-size:0.8rem; }
+
+/* ---- ADMIN ---- */
+.admin-wrap { display:grid; grid-template-columns:220px 1fr; min-height:calc(100vh - var(--nav-h)); padding-top:var(--nav-h); }
+.admin-sidebar { background:var(--surface); border-right:1px solid var(--border); padding:1.5rem 0; }
+.sidebar-label { padding:0 1.2rem; font-family:var(--font-hd); font-size:0.62rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.8rem; }
+.sidebar-item {
+  display:flex; align-items:center; gap:0.65rem;
+  padding:0.65rem 1.2rem; font-size:0.85rem; color:var(--muted);
+  cursor:pointer; transition:var(--trans); border-left:3px solid transparent;
+}
+.sidebar-item:hover,.sidebar-item.active { color:var(--primary); background:rgba(0,200,255,0.05); border-left-color:var(--primary); }
+
+.admin-content { padding:2.5rem; overflow-y:auto; }
+
+/* Table */
+.data-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+.data-table th {
+  text-align:left; padding:0.65rem 0.8rem;
+  font-family:var(--font-hd); font-size:0.65rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);
+  border-bottom:1px solid var(--border);
+}
+.data-table td { padding:0.75rem 0.8rem; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--muted); }
+.data-table tr:hover td { background:rgba(0,200,255,0.02); }
+
+/* Badge pills */
+.pill {
+  display:inline-block; padding:0.18rem 0.55rem; border-radius:20px;
+  font-size:0.65rem; font-weight:700; font-family:var(--font-hd);
+}
+.pill.active   { background:rgba(57,255,20,0.1);   color:var(--green);   }
+.pill.draft    { background:rgba(255,215,0,0.1);    color:var(--gold);    }
+.pill.physics  { background:rgba(0,200,255,0.1);    color:var(--primary); }
+.pill.chemistry{ background:rgba(255,107,53,0.1);   color:var(--orange);  }
+.pill.biology  { background:rgba(57,255,20,0.1);    color:var(--green);   }
+
+/* Form */
+.frm-grp { margin-bottom:1.2rem; }
+.frm-lbl { display:block; font-size:0.72rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.4rem; }
+.frm-input,.frm-select,.frm-textarea {
+  width:100%; padding:0.7rem 0.9rem;
+  background:var(--bg); border:1px solid var(--border);
+  border-radius:var(--radius); color:var(--text);
+  font-family:var(--font-bd); font-size:0.875rem;
+  outline:none; transition:border-color var(--trans);
+}
+.frm-input:focus,.frm-select:focus,.frm-textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(0,200,255,0.08); }
+.frm-textarea { resize:vertical; min-height:110px; }
+
+/* Chart bars */
+.bar-chart { display:flex; align-items:flex-end; gap:6px; height:120px; padding:0.5rem; }
+.bar {
+  flex:1; border-radius:4px 4px 0 0;
+  background:linear-gradient(to top,var(--primary),rgba(0,200,255,0.3));
+  min-height:8px; transition:height 1s ease;
+}
+
+@media(max-width:1024px) { .dash-grid { grid-template-columns:1fr; } .admin-wrap { grid-template-columns:1fr; } .admin-sidebar { display:none; } }

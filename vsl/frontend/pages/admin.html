@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | Virtual Science Lab</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="navbar scrolled">
+  <div class="nav-logo">⚗️ <span>VirtualSciLab — Admin</span></div>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="lab.html">Lab</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="admin.html" style="color:var(--primary)">Admin</a></li>
+  </ul>
+  <a href="lab.html" class="btn-primary">🔬 Lab</a>
+</nav>
+
+<div class="admin-wrap">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-label">Teacher Panel</div>
+    <div class="sidebar-item active" onclick="showSec('overview')">📊 Overview</div>
+    <div class="sidebar-item" onclick="showSec('experiments')">🧪 Experiments</div>
+    <div class="sidebar-item" onclick="showSec('add')">➕ Add Experiment</div>
+    <div class="sidebar-item" onclick="showSec('students')">👥 Students</div>
+    <div class="sidebar-item" onclick="showSec('analytics')">📈 Analytics</div>
+    <div class="sidebar-item" onclick="showSec('settings')">⚙️ Settings</div>
+  </aside>
+
+  <!-- Content -->
+  <div class="admin-content">
+
+    <!-- OVERVIEW -->
+    <div id="sec-overview">
+      <div class="section-label">📊 Overview</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem">Welcome, Dr. Priya Sharma</h2>
+      <div class="stats-row" style="margin-bottom:2rem">
+        <div class="stat-card"><div class="big">48</div><div class="lbl">Students</div></div>
+        <div class="stat-card"><div class="big">24</div><div class="lbl">Experiments</div></div>
+        <div class="stat-card"><div class="big">312</div><div class="lbl">Sessions Today</div></div>
+        <div class="stat-card"><div class="big">76%</div><div class="lbl">Completion Rate</div></div>
+      </div>
+      <div class="sec-card" style="margin-bottom:1.5rem">
+        <div class="card-top"><div class="card-title">Weekly Usage</div></div>
+        <div class="bar-chart" id="usage-chart"></div>
+        <div style="display:flex;justify-content:space-around;margin-top:0.4rem;font-size:0.68rem;color:var(--muted)">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+      </div>
+      <div class="sec-card">
+        <div class="card-top"><div class="card-title">Top Experiments</div></div>
+        <table class="data-table"><thead><tr><th>Experiment</th><th>Subject</th><th>Sessions</th><th>Avg Score</th><th>Status</th></tr></thead>
+        <tbody id="top-exp-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- EXPERIMENTS LIST -->
+    <div id="sec-experiments" style="display:none">
+      <div class="section-label">🧪 Manage</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1rem">All Experiments</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:1rem">
+        <button class="btn-primary" onclick="showSec('add')">+ Add Experiment</button>
+      </div>
+      <div class="sec-card">
+        <table class="data-table"><thead><tr><th>Name</th><th>Subject</th><th>Class</th><th>Duration</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="exp-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- ADD EXPERIMENT -->
+    <div id="sec-add" style="display:none">
+      <div class="section-label">➕ Create</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem">Add New Experiment</h2>
+      <div class="sec-card" style="max-width:600px">
+        <form onsubmit="saveExp(event)">
+          <div class="frm-grp"><label class="frm-lbl">Experiment Name</label><input class="frm-input" type="text" placeholder="e.g. Simple Harmonic Motion" required /></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="frm-grp"><label class="frm-lbl">Subject</label>
+              <select class="frm-select"><option>Physics</option><option>Chemistry</option><option>Biology</option></select></div>
+            <div class="frm-grp"><label class="frm-lbl">Class Level</label>
+              <select class="frm-select"><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Class 11</option><option>Class 12</option></select></div>
+          </div>
+          <div class="frm-grp"><label class="frm-lbl">Description</label><textarea class="frm-textarea" placeholder="Objectives and expected learning outcomes..."></textarea></div>
+          <div class="frm-grp"><label class="frm-lbl">NCERT Chapter</label><input class="frm-input" type="text" placeholder="e.g. Chapter 10 – Gravitation" /></div>
+          <div class="frm-grp"><label class="frm-lbl">Duration (minutes)</label><input class="frm-input" type="number" value="20" min="5" max="120" /></div>
+          <div style="display:flex;gap:1rem;margin-top:0.5rem">
+            <button type="submit" class="btn-primary">Save & Publish</button>
+            <button type="button" class="btn-secondary">Save as Draft</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- STUDENTS -->
+    <div id="sec-students" style="display:none">
+      <div class="section-label">👥 Students</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1rem">All Students</h2>
+      <div class="sec-card">
+        <div class="card-top">
+          <input class="frm-input" type="search" placeholder="Search students..." style="width:260px;padding:0.45rem 0.75rem" />
+        </div>
+        <table class="data-table"><thead><tr><th>Student</th><th>Class</th><th>Experiments</th><th>Last Active</th><th>Avg Score</th></tr></thead>
+        <tbody id="students-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="sec-analytics" style="display:none">
+      <div class="section-label">📈 Analytics</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem">Usage Analytics</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div class="sec-card">
+          <div class="card-title" style="margin-bottom:1rem">Experiment Popularity</div>
+          <div id="pop-chart" style="display:flex;flex-direction:column;gap:0.5rem"></div>
+        </div>
+        <div class="sec-card">
+          <div class="card-title" style="margin-bottom:1rem">Subject Distribution</div>
+          <div id="sub-dist" style="display:flex;flex-direction:column;gap:0.7rem"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="sec-settings" style="display:none">
+      <div class="section-label">⚙️ Settings</div>
+      <h2 class="section-title" style="font-size:1.8rem;margin-bottom:1.5rem">Configuration</h2>
+      <div class="sec-card" style="max-width:480px">
+        <div class="frm-grp"><label class="frm-lbl">School Name</label><input class="frm-input" type="text" value="Government High School, Rajasthan" /></div>
+        <div class="frm-grp"><label class="frm-lbl">Low Bandwidth Mode</label>
+          <select class="frm-select"><option>Auto Detect</option><option>Always On</option><option>Always Off</option></select></div>
+        <div class="frm-grp"><label class="frm-lbl">Language</label>
+          <select class="frm-select"><option>English</option><option>Hindi</option><option>Marathi</option><option>Tamil</option><option>Telugu</option></select></div>
+        <button class="btn-primary" onclick="showToast('Settings saved!','success')">Save Settings</button>
+      </div>
+    </div>
+
+  </div><!-- /admin-content -->
+</div><!-- /admin-wrap -->
+
+<script src="../js/helpers.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

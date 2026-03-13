@@ -1,0 +1,137 @@
+/* ============================================
+   VIRTUAL SCIENCE LAB — main.css
+   Global tokens, reset, nav, buttons
+   ============================================ */
+
+:root {
+  --bg:       #050b18;
+  --surface:  #0a1628;
+  --surface2: #0f2040;
+  --border:   rgba(0,200,255,0.15);
+  --primary:  #00c8ff;
+  --glow:     rgba(0,200,255,0.25);
+  --orange:   #ff6b35;
+  --green:    #39ff14;
+  --gold:     #ffd700;
+  --text:     #e8f4fd;
+  --muted:    #7a9bb5;
+  --font-hd:  'Orbitron', monospace;
+  --font-bd:  'Space Grotesk', sans-serif;
+  --nav-h:    68px;
+  --radius:   12px;
+  --trans:    0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--font-bd); background:var(--bg); color:var(--text); overflow-x:hidden; line-height:1.6; }
+
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--primary); border-radius:3px; }
+
+a { color:inherit; text-decoration:none; }
+ul { list-style:none; }
+img { display:block; max-width:100%; }
+button { cursor:pointer; border:none; background:none; font-family:inherit; }
+
+/* ---- Layout ---- */
+.container { max-width:1240px; margin:0 auto; padding:0 2rem; }
+
+.section-label {
+  font-family:var(--font-hd);
+  font-size:0.68rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--primary);
+  margin-bottom:0.75rem;
+}
+.section-title {
+  font-family:var(--font-hd);
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:700;
+  line-height:1.1;
+  margin-bottom:1rem;
+}
+
+/* ---- Gradient text ---- */
+.gradient-text {
+  background:linear-gradient(135deg,var(--primary),var(--orange),var(--green));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.8rem 1.8rem;
+  background:var(--primary); color:var(--bg);
+  font-family:var(--font-hd); font-size:0.78rem; font-weight:700;
+  letter-spacing:0.05em; border-radius:var(--radius);
+  transition:var(--trans);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px var(--glow); }
+
+.btn-secondary {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  padding:0.8rem 1.6rem;
+  background:transparent; color:var(--text);
+  font-family:var(--font-hd); font-size:0.78rem; font-weight:600;
+  border:1px solid var(--border); border-radius:var(--radius);
+  transition:var(--trans);
+}
+.btn-secondary:hover { border-color:var(--primary); color:var(--primary); }
+
+.btn-outline {
+  display:inline-flex; align-items:center;
+  padding:0.8rem 1.8rem;
+  border:1.5px solid var(--primary); color:var(--primary);
+  font-family:var(--font-hd); font-size:0.78rem; font-weight:600;
+  border-radius:var(--radius); transition:var(--trans);
+}
+.btn-outline:hover { background:var(--primary); color:var(--bg); transform:translateY(-2px); }
+
+/* ---- Navbar ---- */
+.navbar {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  height:var(--nav-h);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 2rem;
+  transition:background var(--trans), backdrop-filter var(--trans);
+}
+.navbar.scrolled {
+  background:rgba(5,11,24,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo {
+  display:flex; align-items:center; gap:0.5rem;
+  font-family:var(--font-hd); font-size:1rem; font-weight:700; color:var(--primary);
+}
+.nav-links { display:flex; gap:2rem; }
+.nav-links a {
+  font-size:0.875rem; color:var(--muted); transition:color var(--trans); position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-3px; left:0;
+  width:0; height:1px; background:var(--primary); transition:width var(--trans);
+}
+.nav-links a:hover { color:var(--primary); }
+.nav-links a:hover::after { width:100%; }
+
+/* ---- Experiment Tags ---- */
+.exp-tag {
+  display:inline-block; padding:0.2rem 0.65rem; border-radius:20px;
+  font-size:0.68rem; font-weight:700; font-family:var(--font-hd);
+  letter-spacing:0.07em; text-transform:uppercase; margin-bottom:0.6rem;
+}
+.exp-tag.physics  { background:rgba(0,200,255,0.12); color:var(--primary); border:1px solid rgba(0,200,255,0.25); }
+.exp-tag.chemistry{ background:rgba(255,107,53,0.12); color:var(--orange); border:1px solid rgba(255,107,53,0.25); }
+.exp-tag.biology  { background:rgba(57,255,20,0.12);  color:var(--green);  border:1px solid rgba(57,255,20,0.25); }
+
+/* ---- Responsive ---- */
+@media(max-width:768px){
+  .nav-links { display:none; }
+  .container { padding:0 1.2rem; }
+}
