@@ -2,12 +2,14 @@
 
 Browser-based 3D and WebXR interactive physics and chemistry laboratory for resource-constrained schools across India.
 
-[Live Demo](TODO: add live link) | [License](LICENSE)
+[Live demo](TODO: owner to add) | [License](LICENSE)
+
+![Screenshot](docs/screenshot.png)  <!-- TODO: owner to add -->
 
 ---
 
 ## Features
-- **3D Interactive Physics & Chemistry:** Real-time canvas simulations including Simple Pendulum harmonic motion, Prism light refraction, and Acid-Base Titration indicators.
+- **3D Interactive Physics & Chemistry:** Real-time simulations including Simple Pendulum harmonic motion, Prism light refraction, and Acid-Base Titration indicators.
 - **WebXR / VR Mode:** A-Frame headset immersion mode allowing hands-on spatial manipulation on mobile browsers and Cardboard headsets without specialized hardware.
 - **Low-Bandwidth Optimization:** Pure client-side Three.js render pipeline designed to run smoothly on basic mobile devices over slow 3G/4G connections.
 - **Student Progress Tracking:** Tracks experiment steps completed, safety warnings triggered, and observation log submissions.
@@ -17,7 +19,7 @@ Browser-based 3D and WebXR interactive physics and chemistry laboratory for reso
 - **Frontend:** HTML5, CSS3, Modern JavaScript (ES6+), Three.js, A-Frame (WebXR)
 - **Backend:** Node.js, Express, REST APIs
 - **Database:** MongoDB (Mongoose schemas for Users, Experiments, Progress)
-- **Deploy:** Vercel (Frontend), Railway / Render (Backend)
+- **Deployment:** Vercel (Frontend), Railway / Render (Backend)
 
 ## Architecture
 
@@ -41,14 +43,14 @@ flowchart TD
 - Node.js 18+
 - MongoDB (local or Atlas cluster)
 
-### Installation
+### Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/yashpatadiya1724-cmyk/virtual-science-lab.git
    cd virtual-science-lab
    ```
 
-2. Configure environment:
+2. Copy environment template:
    ```bash
    cp .env.example backend/.env
    ```
@@ -65,25 +67,25 @@ flowchart TD
    ```
 
 5. Open the frontend:
-   - Open `frontend/index.html` in any modern web browser or serve with a static server:
    ```bash
    npx serve frontend
    ```
 
-## API Endpoints
+## Environment Variables
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/health` | Health check |
-| `POST` | `/api/auth/register` | Student and teacher registration |
-| `POST` | `/api/auth/login` | User authentication & JWT issuance |
-| `GET` | `/api/experiments` | List available 3D science simulations |
-| `POST` | `/api/progress/save` | Save student experiment observations & quiz answers |
+| Variable | Purpose |
+|---|---|
+| `PORT` | Backend HTTP API server listening port (default: `5000`) |
+| `NODE_ENV` | Runtime environment (`development` / `production`) |
+| `MONGODB_URI` | MongoDB database connection URI |
+| `JWT_SECRET` | Secret key for signing student and teacher JWT session tokens |
+| `SESSION_SECRET` | Secret key for express session encryption |
+| `CLIENT_URL` | Allowed client origin for CORS requests (default: `http://localhost:3000`) |
 
 ## Security and Privacy
-- **Tenancy Scoping:** Student experiment progress and quiz scores are scoped by user authentication tokens.
-- **Zero Heavy Asset Leakage:** Simulation logic is executed client-side via procedural Three.js geometry, avoiding large 3D model asset downloads on slow school networks.
-- **Known Limitations:** WebXR stereoscopic view requires WebGL-enabled mobile browsers; older low-end devices may render in fallback 2D interactive canvas mode.
+- **Tenancy Scoping:** Student experiment progress and quiz scores are strictly scoped by user authentication tokens.
+- **Client-Side Rendering:** Simulation logic executes client-side via procedural Three.js geometry, avoiding heavy 3D asset downloads and server-side compute.
+- **Known Limitations:** WebXR stereoscopic mode requires WebGL-enabled mobile browsers; older low-end devices render in standard interactive 2D canvas mode.
 
 ## Roadmap
 - [x] Simple Pendulum, Prism Optics & Acid-Base Titration simulations
@@ -95,6 +97,9 @@ flowchart TD
 ## What I Learned
 - Procedural geometry and mathematical shaders in Three.js provide a significantly lighter, faster experience on budget Android phones than importing bulky pre-modeled 3D GLTF files.
 - Designing educational simulations for rural classrooms requires graceful fallback: if WebXR headsets aren't available, standard touch and mouse controls must deliver equivalent educational value.
+
+## Author
+Yash Patadiya: [LinkedIn](https://www.linkedin.com/in/yash-patadiya-973161272/)
 
 ## License
 MIT
