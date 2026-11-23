@@ -1,5 +1,9 @@
 # Virtual Science Lab (Skill India VR)
 
+[![CI](https://github.com/yashpatadiya1724-cmyk/virtual-science-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/yashpatadiya1724-cmyk/virtual-science-lab/actions/workflows/ci.yml)
+[![Sponsor](https://img.shields.io/badge/Sponsor-yashpatadiya1724--cmyk-ea4aaa?style=flat&logo=github-sponsors)](https://github.com/sponsors/yashpatadiya1724-cmyk)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Browser-based 3D and WebXR interactive physics and chemistry laboratory for resource-constrained schools across India.
 
 [Live demo](TODO: owner to add) | [License](LICENSE)
@@ -59,14 +63,21 @@ flowchart TD
    ```bash
    cd backend
    npm install
+   cd ..
    ```
 
-4. Start the backend API:
+4. Run automated test suite:
    ```bash
+   npm test
+   ```
+
+5. Start the backend API:
+   ```bash
+   cd backend
    npm start
    ```
 
-5. Open the frontend:
+6. Open the frontend:
    ```bash
    npx serve frontend
    ```

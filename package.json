@@ -1,0 +1,21 @@
+{
+  "name": "virtual-science-lab",
+  "version": "1.0.0",
+  "description": "Virtual Science Lab: 3D VR-Ready Interactive Physics & Chemistry Laboratory for Schools (Skill India / NEP 2020)",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "node test/lab_test.js"
+  },
+  "keywords": [
+    "education",
+    "nep2020",
+    "skillindia",
+    "vr",
+    "science",
+    "lab",
+    "threejs",
+    "webxr"
+  ],
+  "author": "Yash Patadiya",
+  "license": "MIT"
+}
