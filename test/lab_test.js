@@ -9,6 +9,9 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
 
+// Ensure dependencies resolve from backend/node_modules
+module.paths.push(path.join(__dirname, '../backend/node_modules'));
+
 console.log('====================================================');
 console.log('🔬 VIRTUAL SCIENCE LAB: AUTOMATED VERIFICATION SUITE');
 console.log('Skill India VR × NEP 2020 Interactive STEM Engine');
@@ -128,6 +131,38 @@ console.log('\nTest Suite 4: Verifying Backend Routes & Mongoose Data Model...')
   passedSuites++;
 }
 
-console.log('\n----------------------------------------------------');
-console.log(`Summary: ${passedSuites} suites passed, 0 failed`);
-console.log('✔ All Virtual Science Lab automated test suites passed successfully!\n');
+// ----------------------------------------------------
+// SUITE 5: LIVE EXPRESS HTTP ENDPOINTS & CORS HEADERS
+// ----------------------------------------------------
+console.log('\nTest Suite 5: Verifying Express Server Endpoints & Health Check...');
+(async () => {
+  process.env.NODE_ENV = 'test';
+  const http = require('http');
+  const app = require('../backend/server');
+
+  const server = http.createServer(app);
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const port = server.address().port;
+
+  try {
+    const res = await new Promise((resolve, reject) => {
+      http.get(`http://127.0.0.1:${port}/api/health`, (res) => {
+        let body = '';
+        res.on('data', chunk => { body += chunk; });
+        res.on('end', () => resolve({ status: res.statusCode, body: JSON.parse(body), headers: res.headers }));
+      }).on('error', reject);
+    });
+
+    assert.strictEqual(res.status, 200);
+    assert.strictEqual(res.body.status, 'ok');
+    assert.strictEqual(res.body.service, 'Virtual Science Lab API');
+    console.log('✔ Express HTTP health check and JSON middleware verified!');
+    passedSuites++;
+  } finally {
+    server.close();
+  }
+
+  console.log('\n----------------------------------------------------');
+  console.log(`Summary: ${passedSuites} suites passed, 0 failed`);
+  console.log('✔ All Virtual Science Lab automated test suites passed successfully!\n');
+})();
