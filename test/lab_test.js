@@ -163,6 +163,29 @@ console.log('\nTest Suite 3: Validating STEM Physics & Chemistry Simulation Form
   assert.strictEqual(iParallel, 0.2, 'Parallel total current must be 0.2 Amperes at 10V');
   assert.strictEqual(pParallel, 2.0, 'Total power dissipation must be 2.0 Watts');
 
+  // 9. Ideal Gas Law Thermodynamics: P * V = n * R * T
+  const R_GAS = 8.314; // J/(mol*K)
+  const n_moles = 1.0; // 1 mole of gas
+  const t_kelvin = 273.15; // 0 deg C
+  const p_pascals = 101325.0; // 1 atm in Pa
+  const molarVolumeM3 = (n_moles * R_GAS * t_kelvin) / p_pascals;
+  const molarVolumeLiters = molarVolumeM3 * 1000.0;
+  assert.ok(Math.abs(molarVolumeLiters - 22.414) < 0.02, `Standard molar gas volume must be ~22.4L (calculated: ${molarVolumeLiters.toFixed(3)}L)`);
+
+  // Isothermal expansion (Boyle's Law: P1 * V1 = P2 * V2)
+  const vDouble = molarVolumeM3 * 2.0;
+  const pHalved = (p_pascals * molarVolumeM3) / vDouble;
+  assert.strictEqual(pHalved, p_pascals / 2.0, "Isothermal volume doubling must halve gas pressure");
+
+  // 10. Mechanical Energy Conservation: E_total = E_potential + E_kinetic
+  const massKg = 0.5;
+  const dropHeightM = 10.0;
+  const initialEp = massKg * g * dropHeightM; // m * g * h
+  // Final velocity upon ground impact: v = sqrt(2 * g * h)
+  const impactVelocity = Math.sqrt(2 * g * dropHeightM);
+  const finalEk = 0.5 * massKg * impactVelocity * impactVelocity;
+  assert.ok(Math.abs(finalEk - initialEp) < 1e-6, `Total mechanical energy (${initialEp} J) must be conserved at impact (${finalEk} J)`);
+
   console.log('✔ Mathematical & scientific simulation models verified!');
   passedSuites++;
 }
