@@ -103,6 +103,36 @@ console.log('\nTest Suite 3: Validating STEM Physics & Chemistry Simulation Form
   assert.ok(angleRefractedDeg < angleIncidentDeg, 'Light ray must bend towards the normal in a denser medium');
   assert.ok(Math.abs(angleRefractedDeg - 28.13) < 0.1, `Refraction angle must be ~28.1° (calculated: ${angleRefractedDeg.toFixed(2)}°)`);
 
+  // 4. Inverse Acceleration Due to Gravity from Harmonic Oscillation: g = 4 * pi^2 * L / T^2
+  const gCalculated = (4 * Math.PI * Math.PI * length) / (expectedPeriod * expectedPeriod);
+  assert.ok(Math.abs(gCalculated - 9.8) < 0.05, `Calculated g (${gCalculated.toFixed(2)}) must align with terrestrial gravity (9.8 m/s²)`);
+
+  // 5. Prism Minimum Deviation Angle: n = sin((A + Dm)/2) / sin(A/2)
+  const apexAngleA = 60.0; // degrees
+  const glassIndex = 1.52; // borosilicate crown glass
+  const sinHalfA = Math.sin((apexAngleA * Math.PI) / 360.0);
+  const minDeviationDeg = (2 * Math.asin(glassIndex * sinHalfA) * 180.0) / Math.PI - apexAngleA;
+  assert.ok(Math.abs(minDeviationDeg - 38.92) < 0.15, `Prism minimum deviation must be ~38.9° (calculated: ${minDeviationDeg.toFixed(2)}°)`);
+
+  // 6. Dynamic pH Curve Progression during Strong Acid / Strong Base Titration
+  const phInitial = -Math.log10(mAcid);
+  assert.strictEqual(phInitial, 1.0, 'Initial 0.1 M HCl pH must be 1.0');
+
+  const vAdded20mL = 20.0;
+  const molesRemainingH = (mAcid * vAcid - mBase * vAdded20mL) / 1000.0;
+  const totalVolumePreEq = (vAcid + vAdded20mL) / 1000.0;
+  const concentrationH = molesRemainingH / totalVolumePreEq;
+  const phPreEq = -Math.log10(concentrationH);
+  assert.ok(phPreEq > phInitial && phPreEq < 7.0, 'pH must rise gradually before equivalence point');
+
+  const phEquivalence = 7.0; // Neutral water dissociation at 25°C
+  const vAdded30mL = 30.0;
+  const molesExcessOH = (mBase * vAdded30mL - mAcid * vAcid) / 1000.0;
+  const totalVolumePostEq = (vAcid + vAdded30mL) / 1000.0;
+  const concentrationOH = molesExcessOH / totalVolumePostEq;
+  const phPostEq = 14.0 - (-Math.log10(concentrationOH));
+  assert.ok(phPostEq > phEquivalence && phPostEq > 11.0, 'pH must surge into basic range (>11) after equivalence');
+
   console.log('✔ Mathematical & scientific simulation models verified!');
   passedSuites++;
 }
