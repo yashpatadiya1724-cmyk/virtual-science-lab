@@ -91,17 +91,19 @@ app.use((err, req, res, next) => {
 // =====================================================
 // DATABASE + SERVER START
 // =====================================================
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    console.log(`✅ MongoDB connected: ${MONGODB_URI}`);
-  })
-  .catch(err => {
-    console.error('❌ MongoDB connection failed:', err.message);
-    console.log('ℹ  Starting server without database (demo mode)...');
-  });
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(MONGODB_URI)
+    .then(() => {
+      console.log(`✅ MongoDB connected: ${MONGODB_URI}`);
+    })
+    .catch(err => {
+      console.error('❌ MongoDB connection failed:', err.message);
+      console.log('ℹ  Starting server without database (demo mode)...');
+    });
+}
 
 // Only listen locally — Vercel handles the HTTP layer in production
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && require.main === module) {
   app.listen(PORT, () => {
     console.log(`🚀 Virtual Science Lab server running on http://localhost:${PORT}`);
     console.log(`📚 NEP 2020 | Skill India VR Platform`);
