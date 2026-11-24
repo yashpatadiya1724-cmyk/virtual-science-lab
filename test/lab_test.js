@@ -133,6 +133,36 @@ console.log('\nTest Suite 3: Validating STEM Physics & Chemistry Simulation Form
   const phPostEq = 14.0 - (-Math.log10(concentrationOH));
   assert.ok(phPostEq > phEquivalence && phPostEq > 11.0, 'pH must surge into basic range (>11) after equivalence');
 
+  // 7. Thin Lens Formula for Convex Converging Optics: 1/f = 1/v - 1/u
+  const focalLengthF = 15.0; // cm
+  // Case A: Real object at 2f (u = -30 cm) -> Real inverted image at 2f (v = +30 cm)
+  const objectDistAt2f = -30.0;
+  const imageDistAt2f = (focalLengthF * objectDistAt2f) / (objectDistAt2f + focalLengthF);
+  assert.ok(Math.abs(imageDistAt2f - 30.0) < 0.01, `Convex lens image distance at 2f must be +30.0 cm (calculated: ${imageDistAt2f.toFixed(2)})`);
+  const magnificationAt2f = imageDistAt2f / objectDistAt2f;
+  assert.strictEqual(magnificationAt2f, -1.0, 'Magnification at 2f must be -1.0 (inverted, equal size)');
+
+  // Case B: Virtual image magnifying glass regime (u = -10 cm < f)
+  const objectDistVirtual = -10.0;
+  const imageDistVirtual = (focalLengthF * objectDistVirtual) / (objectDistVirtual + focalLengthF);
+  assert.ok(Math.abs(imageDistVirtual - (-30.0)) < 0.01, 'Image must be virtual (v = -30.0 cm)');
+  const magnificationVirtual = imageDistVirtual / objectDistVirtual;
+  assert.strictEqual(magnificationVirtual, 3.0, 'Virtual image magnification must be +3.0 (upright, magnified)');
+
+  // 8. Ohm's Law & Circuit Equivalent Resistances (Series vs Parallel)
+  const r1 = 100.0; // Ohms
+  const r2 = 100.0; // Ohms
+  const voltage = 10.0; // Volts
+  const rSeries = r1 + r2;
+  const rParallel = (r1 * r2) / (r1 + r2);
+  assert.strictEqual(rSeries, 200.0, 'Series equivalent resistance must sum to 200 Ohms');
+  assert.strictEqual(rParallel, 50.0, 'Parallel equivalent resistance must equal 50 Ohms');
+
+  const iParallel = voltage / rParallel;
+  const pParallel = voltage * iParallel;
+  assert.strictEqual(iParallel, 0.2, 'Parallel total current must be 0.2 Amperes at 10V');
+  assert.strictEqual(pParallel, 2.0, 'Total power dissipation must be 2.0 Watts');
+
   console.log('✔ Mathematical & scientific simulation models verified!');
   passedSuites++;
 }
