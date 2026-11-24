@@ -186,6 +186,28 @@ console.log('\nTest Suite 3: Validating STEM Physics & Chemistry Simulation Form
   const finalEk = 0.5 * massKg * impactVelocity * impactVelocity;
   assert.ok(Math.abs(finalEk - initialEp) < 1e-6, `Total mechanical energy (${initialEp} J) must be conserved at impact (${finalEk} J)`);
 
+  // 11. Hooke's Law & Spring Elastic Potential Energy: F = -k * x, E_elastic = 0.5 * k * x^2
+  const springConstantK = 250.0; // N/m
+  const hangingMassKg = 1.0; // 1 kg suspended mass
+  const springDisplacement = (hangingMassKg * g) / springConstantK; // x = mg / k = 9.8 / 250 = 0.0392 m
+  assert.ok(Math.abs(springDisplacement - 0.0392) < 0.001, `Spring equilibrium displacement must be 0.0392m (calculated: ${springDisplacement.toFixed(4)}m)`);
+  const restoringForce = springConstantK * springDisplacement;
+  assert.ok(Math.abs(restoringForce - (hangingMassKg * g)) < 0.001, 'Restoring elastic force must balance gravitational weight');
+  const elasticEnergy = 0.5 * springConstantK * springDisplacement * springDisplacement;
+  assert.ok(Math.abs(elasticEnergy - 0.192) < 0.005, `Elastic potential energy stored must be ~0.192 J (calculated: ${elasticEnergy.toFixed(4)} J)`);
+
+  // 12. Acoustic Doppler Frequency Shift for Moving Wave Sources: f' = f0 * (v / (v -+ vs))
+  const vSoundInAir = 343.0; // m/s at 20 deg C
+  const baseFrequency = 440.0; // Hz (Concert A)
+  const sourceSpeedApproaching = 25.0; // m/s (~90 km/h)
+  const perceivedFreqApproaching = baseFrequency * (vSoundInAir / (vSoundInAir - sourceSpeedApproaching));
+  assert.ok(perceivedFreqApproaching > baseFrequency, 'Approaching source must exhibit blue-shifted higher pitch');
+  assert.ok(Math.abs(perceivedFreqApproaching - 474.59) < 0.2, `Approaching perceived pitch must be ~474.6 Hz (calculated: ${perceivedFreqApproaching.toFixed(2)} Hz)`);
+
+  const perceivedFreqReceding = baseFrequency * (vSoundInAir / (vSoundInAir + sourceSpeedApproaching));
+  assert.ok(perceivedFreqReceding < baseFrequency, 'Receding source must exhibit red-shifted lower pitch');
+  assert.ok(Math.abs(perceivedFreqReceding - 410.11) < 0.2, `Receding perceived pitch must be ~410.1 Hz (calculated: ${perceivedFreqReceding.toFixed(2)} Hz)`);
+
   console.log('✔ Mathematical & scientific simulation models verified!');
   passedSuites++;
 }
